@@ -2,7 +2,7 @@
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-  { name: 'Главная', path: '/' },
+  { name: 'График', path: '/' },
   { name: 'Книги', path: '/books' },
   { name: 'Картинки', path: '/images' },
   { name: 'Карта', path: '/map' },

@@ -23,6 +23,9 @@ export const SearchImage = ({ query }: Props) => {
     searchUnsplash(query, page)
       .then((data) =>
         startTransition(() => {
+          if (data.length === 0) {
+            setError('Не удалось загрузить изображения');
+          }
           setImages(data);
         })
       )
