@@ -7,14 +7,23 @@ export default function Search() {
   const [query, setQuery] = useState('');
   const [books, setBooks] = useState<Book[]>([]);
   const [isPending, startTransition] = useTransition();
-
+  const [error, setError] = useState<null | string>(null);
   const handleSearch = (q: string) => {
     setQuery(q);
-    if (q.length === 0) setBooks([]);
+    if (q.length === 0) {
+      setBooks([]);
+      return setError(null);
+    }
     if (q.length < 3) return;
     startTransition(async () => {
       const result = await getBooksByQuery(q);
-      setBooks(result);
+      if (result.length === 0) {
+        setError('Не удалось найти кингу');
+        setBooks(result);
+      } else {
+        setError(null);
+        setBooks(result);
+      }
     });
   };
 
@@ -26,7 +35,8 @@ export default function Search() {
         value={query}
         onChange={(e) => handleSearch(e.target.value)}
       />
-      {isPending && <p className="text-blue-500">Загрузка...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {!error && isPending && <p className="text-blue-500">Загрузка...</p>}
       {books.length > 0 && <BookList books={books} />}
     </div>
   );

@@ -2,8 +2,8 @@ export type SetStateAction<T> = React.Dispatch<React.SetStateAction<T>>;
 export type Book = {
   key: string;
   title: string;
-  author_name?: string[];
-  first_publish_year?: number;
+  author?: string[];
+  year?: number;
 };
 export interface UnsplashImage {
   id: string;

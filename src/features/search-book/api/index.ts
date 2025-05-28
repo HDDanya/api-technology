@@ -25,12 +25,12 @@ export async function getBooksByQuery(query: string): Promise<Book[]> {
     }
 
     const data: OpenLibraryResponse = await res.json();
-
+    console.log(data);
     const books: Book[] = data.docs.slice(0, 10).map((doc) => ({
-      title: doc.title,
-      author: doc.author_name?.[0] ?? 'Неизвестен',
-      year: doc.first_publish_year,
       key: doc.key,
+      title: doc.title,
+      author: doc.author_name ,
+      year: doc.first_publish_year,
     }));
 
     CachedBooks.set(query, books);
